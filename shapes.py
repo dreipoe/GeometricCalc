@@ -24,7 +24,7 @@ class Circle(FlatShape):
 		:raises AttributeError:
 		"""
 		if r <= 0:
-			raise AttributeError("Radius is not positive")
+			raise AttributeError("Величина радиуса не положительна")
 
 		self._r = r
 
@@ -52,7 +52,7 @@ class Rectangle(FlatShape):
 		:raises AttributeError:
 		"""
 		if a <= 0 or b <= 0:
-			raise AttributeError("One or mode sides aren't positive")
+			raise AttributeError("Величина длины или ширины не положительна")
 
 		self._a, self._b = a, b
 
@@ -77,7 +77,7 @@ class Square(FlatShape):
 		:raises AttributeError:
 		"""
 		if a <= 0:
-			raise AttributeError("Side isn't positive")
+			raise AttributeError("Величина стороны не положительна")
 
 		self._a = a
 
@@ -103,10 +103,10 @@ class Rhombus(FlatShape):
 		:raises AttributeError:
 		"""
 		if any((a <= 0, alpha <= 0)):
-			raise AttributeError("Side or angle isn't positive")
+			raise AttributeError("Величина стороны или угла не положительна")
 
 		if alpha >= 90:
-			raise AttributeError("Angle is too big")
+			raise AttributeError("Угол больше 90 градусов")
 
 		self._a, self._alpha = a, alpha * pi / 180
 
@@ -137,10 +137,10 @@ class Triangle(FlatShape):
 		:raises AttributeError:
 		"""
 		if not self._check_triangle_sides(a, b, c):
-			raise AttributeError("Cannot build a triangle with such sides")
+			raise AttributeError("Невозможно собрать треугольник с такими сторонами")
 
 		if any((a <= 0, b <= 0, c <= 0)):
-			raise AttributeError("One or mode sides aren't positive")
+			raise AttributeError("Величина одной или более сторон не положительна")
 
 		self._a, self._b, self._c = a, b, c
 
@@ -172,7 +172,7 @@ class Sphere(VolumetricShape):
 		:raises AttributeError:
 		"""
 		if r <= 0:
-			raise AttributeError("Radius is not positive")
+			raise AttributeError("Величина радиуса не положительна")
 
 		self._r = r
 
@@ -199,7 +199,7 @@ class Parallelepiped(VolumetricShape):
 		:raises AttributeError:
 		"""
 		if any((a <= 0, b <= 0, h <= 0)):
-			raise AttributeError("One or mode sides aren't positive")
+			raise AttributeError("Величина длины, ширины или высоты не положительна")
 
 		self._a, self._b, self._h = a, b, h
 
@@ -221,7 +221,7 @@ class Pyramid(VolumetricShape):
 		:raises AttributeError:
 		"""
 		if h <= 0:
-			raise AttributeError("Height isn't positive")
+			raise AttributeError("Величина высоты не положительна")
 
 		self._base, self._h = base, h
 
@@ -239,7 +239,7 @@ class Cone(Pyramid):
 		:raises AttributeError:
 		"""
 		if h <= 0:
-			raise AttributeError("One or mode sides aren't positive")
+			raise AttributeError("Величина высоты не положительна")
 
 		super().__init__(Circle(r), h)
 		self._r = r
@@ -254,7 +254,7 @@ class Cylinder(VolumetricShape):
 	"""Класс, представляющий собой цилиндр"""
 	def __init__(self, r: float, h: float):
 		if any((r <= 0, h <= 0)):
-			raise AttributeError("One or mode sides aren't positive")
+			raise AttributeError("Величина радиуса или высоты цилиндра не положительна")
 
 		self._r, self._h = r, h
 
