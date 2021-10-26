@@ -105,10 +105,10 @@ class Rhombus(FlatShape):
 		if any((a <= 0, alpha <= 0)):
 			raise AttributeError("Side or angle isn't positive")
 
-		if alpha >= pi / 2:
+		if alpha >= 90:
 			raise AttributeError("Angle is too big")
 
-		self._a, self._alpha = a, alpha
+		self._a, self._alpha = a, alpha * pi / 180
 
 	def perimeter(self) -> float:
 		"""Периметр ромба"""
@@ -124,8 +124,8 @@ class Triangle(FlatShape):
 	@staticmethod
 	def _check_triangle_sides(a: float, b: float, c: float):
 		"""
-		Проверяет, возможно ли построить треугольник с заданными углами. Треугольник возможно построить, если сумма длин
-		любой из трёх пар сторон треугольника больше, чем третья сторона
+		Проверяет, возможно ли построить треугольник с заданными углами. Треугольник возможно построить, если каждая её
+		сторона меньше, чем сумма длин двух других сторон
 		"""
 		return all((a + b > c, a + c > b, b + c > a))
 
@@ -230,27 +230,24 @@ class Pyramid(VolumetricShape):
 		return self._base.area() * self._h / 3
 
 
-class Cone(VolumetricShape):
-	"""Класс, представляющий собой конус"""
+class Cone(Pyramid):
+	"""Класс, представляющий собой конус - пирамиду с основанием в виде круга"""
 	def __init__(self, r: float, h: float):
 		"""
 		:param r: Радиус основания
 		:param h: Высота конуса
 		:raises AttributeError:
 		"""
-		if any((r <= 0, h <= 0)):
+		if h <= 0:
 			raise AttributeError("One or mode sides aren't positive")
 
-		self._r, self._h = r, h
+		super().__init__(Circle(r), h)
+		self._r = r
 
 	def area(self) -> float:
 		"""Полная площадь поверхности конуса"""
 		le = (self._r ** 2 + self._h ** 2) ** 0.5
 		return pi * self._r * (le + self._r)
-
-	def volume(self) -> float:
-		"""Объём конуса"""
-		return pi * self._r ** 2 * self._h / 3
 
 
 class Cylinder(VolumetricShape):
